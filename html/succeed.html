@@ -14,15 +14,28 @@
     
     <div class="contentMenu">
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#news">News</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a onclick="changeDivs('1');">상황관리</a></li>
+            <li><a onclick="changeDivs('2');">결산</a></li>
+            <li><a onclick="changeDivs('3');">배차</a></li>
+            <li><a onclick="changeDivs('4');">배차 결재</a></li>
         </ul>
+		<a class="lArrow" style="float:left;" onclick="plusDivs(-1)">&#10094;</a>
+		<a class="rArrow" style="float:right;" onclick="plusDivs(+1)">&#10095;</a>
     </div>
 
     <div class="content">
-        asdfasdfasdfd
+		<h1 id="contentTitle">상황관리</h1>
+        <img class="slide1" src="../img/1-1.jpg">
+        <img class="slide1" src="../img/1-2.jpg">
+        <img class="slide1" src="../img/1-3.png">
+        <img class="slide2" src="../img/2-1.jpg">
+        <img class="slide2" src="../img/2-2.jpg">
+        <img class="slide3" src="../img/3-1.jpg">
+        <img class="slide4" src="../img/4-1.jpg">
+		<p id="contentContent">
+		</p>
     </div>
+	
+	<script src="../js/succeed.js"></script>
 </body>
 </html>

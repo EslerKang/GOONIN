@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GOONIN</title>
+		
+		<style>
+			h1 {
+				text-align:center;
+			}
+			#diff {
+				color:green;
+			}
+			#diffDiv {
+				align-content:center;
+			}
+			#diffDiv h1 {
+				display:inline-block;
+			}
+		</style>
+	</head>
+	
+	<header>
+		
+	</header>
+	
+	<body>
+		<h1 id="today">
+			s
+		</h1>
+		<div id="diffDiv">
+			<h1>
+				무사고
+			</h1>
+			<h1 id="diff">
+				
+			</h1>
+			<h1>
+				일
+			</h1>
+		</div>
+		<script>
+			const SDATE = new Date(2018, 10, 20);
+			
+			var nDate = new Date();
+			
+			var year = nDate.getFullYear();
+			var month = nDate.getMonth()+1;
+			var date = nDate.getDate();
+			var diff = Math.floor((nDate-SDATE)/(24*1000*60*60));
+			
+			document.querySelector('#today').innerHTML = year+"년 "+month+"월 "+date+"일";
+			document.getElementById('diff').innerHTML = " "+diff;
+		</script>
+	</body>
+</html>

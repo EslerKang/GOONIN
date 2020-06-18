@@ -34,33 +34,36 @@ function openFile(){
 	rawFile.send(null);
 	
 	var sp;
-	var a = [];
 	var i;
 	
 	
 	for(i=0; i<fileContent.length; i++) {
 		sp = fileContent[i].split(",");
+		sp[0] = parseInt(sp[0]);
+		sp[2] = parseInt(sp[2]);
+		sp[3] = parseInt(sp[3]);
 		users[i] = new user(sp[0],sp[1],sp[2],sp[3],sp[4],sp[5]);
-		a[i] = i;
 	}
 	var tmp;
 	var usersCopy = users.slice();
-	var usersCopyT = users.slice();
-	for(i=0; i<users.length-1; i++) {
-		for(var j=0; j<i; j++) {
-			if((usersCopy[j].start)*1 > (usersCopy[j+1].start)*1) {
-				tmp = usersCopy[j].start;
-				usersCopy[j].start = usersCopy[j+1].start;
-				usersCopy[j+1].start = tmp;
-				tmp = a[j];
-				a[j] = a[j+1];
-				a[j+1] = tmp;
+	var key = true;
+	var count = 0;
+	while(key) {
+		for(i=0; i<users.length-1; i++) {
+			if(usersCopy[i].start > usersCopy[i+1].start) {
+				tmp = usersCopy[i].start;
+				usersCopy[i].start = usersCopy[i+1].start;
+				usersCopy[i+1].start = tmp;
+				count++;
 			}
 		}
+		if(count==0) {
+			key = false;
+		}
+		count =0;
 	}
-	alert(a)
 	for(i=0;i<users.length;i++) {
-		users[i] = usersCopyT[a[i]];
+		users[i] = usersCopy[i];
 	}
 	
 }

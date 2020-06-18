@@ -2,8 +2,24 @@ var fileText = "";
 var fileContent;
 var file;
 
+
 var today = new Date();
 var day = ["일","월","화","수","목","금","토"];
+
+
+function setCookie(value){
+	var expire = new Date(9999,11,30);
+	document.cookie = "data="+value+";expires="+expire.toUTCString()+"path=/";
+}
+
+function getCookie() {
+	var value = document.cookie.match('(^|;) ?' + "data" + '=([^;]*)(;|$)');
+  	return value? value[2] : null;
+}
+
+function delCookie(){
+	document.cookie = 'data=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
 
 function user(id, name, start, end, team, ability) {
 	this.id = id;
@@ -16,20 +32,21 @@ function user(id, name, start, end, team, ability) {
 
 var users = [];
 
-function changeFile() {
-
-}
-
-function makeFileContent(){
+function makeData(){
 	var str = "", s;
 	for(var i=0;i<users.length;i++) {
 		s = users[i];
 		str+=s.id+","+s.name+","+s.start+","+s.end+","+s.team+","+s.ability;
 		if(i!=(users.length-1)) {
-			str+="\n";
+			str+="|";
 		}
 	}
 	return str;
+}
+
+function addUser(id, name, start, end, team, ability) {
+	users[users.length] = new user(id, name, start, end, team, ability);
+	sortUser();
 }
 
 function sortUser() {
@@ -54,43 +71,20 @@ function sortUser() {
 	for(i=0;i<users.length;i++) {
 		users[i] = usersCopy[i];
 	}
-	fileText = makeFileContent();
-	changeFile();
+	data = makeData();
+	setCookie(data);
 }
 
-function addUser() {
-	
-	
-	sortUser();
+var data = getCookie();
+
+if(data==null) {
+	alert('사용자 입력 필요!');
 }
-
-function delUser() {
-	
-}
-
-function openFile(){
-	file = "../file/userList.txt";
-	var rawFile = new XMLHttpRequest();
-	rawFile.open("GET", file, false);
-	rawFile.onreadystatechange = function() {
-		if(rawFile.readyState === 4) {
-			if(rawFile.status === 200 || rawFile.status == 0) {
-				var text = rawFile.responseText;
-				fileText = text;
-				fileContent = fileText.split('\n');
-			}
-		}
-	};
-
-	
-	rawFile.send(null);
-	
+else {
 	var sp;
-	var i;
-	
-	
-	for(i=0; i<fileContent.length; i++) {
-		sp = fileContent[i].split(",");
+	var content = data.split('|');
+	for(var i=0; i<content.length; i++) {
+		sp = content[i].split(",");
 		sp[0] = parseInt(sp[0]);
 		sp[2] = parseInt(sp[2]);
 		sp[3] = parseInt(sp[3]);
@@ -98,7 +92,3 @@ function openFile(){
 	}
 	sortUser();
 }
-
-
-
-openFile();

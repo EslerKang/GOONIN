@@ -1,6 +1,6 @@
 var fileText = "";
 var fileContent;
-
+var file;
 
 var today = new Date();
 var day = ["일","월","화","수","목","금","토"];
@@ -15,6 +15,58 @@ function user(id, name, start, end, team, ability) {
 }
 
 var users = [];
+
+function changeFile() {
+
+}
+
+function makeFileContent(){
+	var str = "", s;
+	for(var i=0;i<users.length;i++) {
+		s = users[i];
+		str+=s.id+","+s.name+","+s.start+","+s.end+","+s.team+","+s.ability;
+		if(i!=(users.length-1)) {
+			str+="\n";
+		}
+	}
+	return str;
+}
+
+function sortUser() {
+	var tmp;
+	var usersCopy = users.slice();
+	var key = true;
+	var count = 0;
+	while(key) {
+		for(i=0; i<users.length-1; i++) {
+			if(usersCopy[i].start > usersCopy[i+1].start) {
+				tmp = usersCopy[i];
+				usersCopy[i] = usersCopy[i+1];
+				usersCopy[i+1] = tmp;
+				count++;
+			}
+		}
+		if(count==0) {
+			key = false;
+		}
+		count =0;
+	}
+	for(i=0;i<users.length;i++) {
+		users[i] = usersCopy[i];
+	}
+	fileText = makeFileContent();
+	changeFile();
+}
+
+function addUser() {
+	
+	
+	sortUser();
+}
+
+function delUser() {
+	
+}
 
 function openFile(){
 	file = "../file/userList.txt";
@@ -44,35 +96,9 @@ function openFile(){
 		sp[3] = parseInt(sp[3]);
 		users[i] = new user(sp[0],sp[1],sp[2],sp[3],sp[4],sp[5]);
 	}
-	var tmp;
-	var usersCopy = users.slice();
-	var key = true;
-	var count = 0;
-	while(key) {
-		for(i=0; i<users.length-1; i++) {
-			if(usersCopy[i].start > usersCopy[i+1].start) {
-				tmp = usersCopy[i].start;
-				usersCopy[i].start = usersCopy[i+1].start;
-				usersCopy[i+1].start = tmp;
-				count++;
-			}
-		}
-		if(count==0) {
-			key = false;
-		}
-		count =0;
-	}
-	for(i=0;i<users.length;i++) {
-		users[i] = usersCopy[i];
-	}
-	
+	sortUser();
 }
 
 
-
-function calcEscapeDate() {
-	
-}
 
 openFile();
-calcEscapeDate();

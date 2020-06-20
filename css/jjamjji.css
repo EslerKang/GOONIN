@@ -1,0 +1,25 @@
+input.user {
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	border:none;
+	border-bottom:1.5px solid grey;
+	appearance:none;
+	width : 100px;
+	margin-left:10px;
+}
+
+.userinput {
+	text-align:center;
+}
+
+#plus {
+	font-size:35px;
+	border:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	background:none;
+	
+	position:fixed;
+	right:30px;
+	bottom:30px;
+}
